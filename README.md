@@ -54,6 +54,7 @@ Este es el formato más popular y legible, ya que muestra los cambios junto a su
     * ` ` (Un espacio): La línea no tiene cambios y está presente en ambos archivos. Sirve de contexto.
     * `+`: Es una línea **agregada** en el nuevo archivo.
     * `-`: Es una línea **eliminada** del archivo original.
+    * `>`: Redirige la salida del comando "diff" a un nuevo archivo. 
 
 ***
 
@@ -100,6 +101,50 @@ Para los usuarios del editor de texto **Vim**, **`vimdiff`** es la solución int
 * **Navegación y fusión con comandos**: Utiliza los comandos nativos de Vim para navegar rápidamente entre las diferencias (`]c` y `[c`) y para mover los cambios de una ventana a otra (`do` y `dp`), haciendo que el proceso de fusión sea rápido y eficiente para quienes dominan el editor.
 
 ¿Para qué se usa el comando patch? 
+El comando patch toma el archivo generado por diff y aplica los cambios al archivo original. 
+
+***
+
+## 🤝 `diff` vs. `patch`: El Analista y el Aplicador
+
+Hay una diferencia fundamental entre diff y patch, aunque es una de las relaciones más importantes en el control de versiones.
+
+A menudo se usan juntos, pero `diff` es el **analista** (el que encuentra la diferencia) y `patch` es el **aplicador** (el que implementa la diferencia).
+
+Piénsalo con esta analogía: **La Receta y el Cocinero.**
+
+***
+
+### `diff`: El Chef que Escribe la Receta 🕵️‍♂️
+
+El propósito (**"Para Qué"**) de `diff` es **analizar** dos archivos (o dos versiones, como dos commits de Git) y **generar un informe** que describe *exactamente* qué líneas deben agregarse, eliminarse o cambiarse para convertir el Archivo A (original) en el Archivo B (nuevo).
+
+* **Acción:** Compara A con B.
+* **Resultado:** Un archivo de texto (un `.diff` o `.patch`) que es la **"receta"** de cómo convertir A en B.
+
+En Git, cuando ejecutas `git diff`, estás pidiendo este informe. Git te muestra el análisis de `diff` en formato unificado (con `+` y `-`) para que *tú* puedas leerlo y entender qué cambió.
+
+### `patch`: El Cocinero que Sigue la Receta 🛠️
+
+El propósito (**"Para Qué"**) de `patch` es **tomar esa receta** (el archivo `.diff` generado por `diff`) y **aplicar esos cambios** a una copia del archivo original (A) para transformarlo exitosamente en el archivo nuevo (B).
+
+* **Acción:** Lee la "receta" (`.patch`) y modifica el Archivo A.
+* **Resultado:** El Archivo A se convierte en el Archivo B.
+
+En Git, esta es la lógica que se usa *internamente* todo el tiempo. Cuando haces un `git pull`, `git cherry-pick` o (a veces) `git merge`, Git está usando el concepto de `patch` por debajo: toma los "diffs" (commits) de otra rama y los "aplica" (patches) a tu rama actual para actualizar tus archivos.
+
+***
+
+### Resumen de la Diferencia
+
+| Característica | `diff` | `patch` |
+| :--- | :--- | :--- |
+| **Propósito** | Encontrar y Reportar Cambios | Aplicar Cambios |
+| **Verbo** | Analizar | Ejecutar |
+| **Entrada** | Archivo A, Archivo B | Archivo A, Informe de `diff` |
+| **Salida** | Informe de `diff` (la "receta") | Archivo B (el "resultado") |
+
+En general, un diff/patch file incluye todos los cambios entre el primer archivo y el segundo, más el contexto necesario para entender los cambios y aplicarlos de vuelta al archivo original (siempre y cuando se utilice -u). 
 
 ¿Cuál es la diferencia entre Git y GitHub? 
 Git es un VCS, GitHub es un servicio que usa a Git para crear repositorios remotos. En Git se puede almacenar el historial de mi código, en GitHub se puede hacer lo mismo que en Git, pero con la posibilidad de colaborar con otros. 
