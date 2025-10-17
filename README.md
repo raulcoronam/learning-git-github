@@ -54,8 +54,8 @@ Este es el formato más popular y legible, ya que muestra los cambios junto a su
     * ` ` (Un espacio): La línea no tiene cambios y está presente en ambos archivos. Sirve de contexto.
     * `+`: Es una línea **agregada** en el nuevo archivo.
     * `-`: Es una línea **eliminada** del archivo original.
-    * `>`: Redirige la salida del comando "diff" a un nuevo archivo. 
-
+    * `>`: Redirige la salida del comando "diff" a un nuevo archivo, p.e.:`diff -u old_file new_file > change.diff`
+    * `<`: Redirige el contenido del archivo hacia la entrada estándar, p.e.: `patch cpu_usage.py < cpu_usage.diff`
 ***
 
 ### ✅ ¿Por Qué Es Importante?
