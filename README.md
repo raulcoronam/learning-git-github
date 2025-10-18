@@ -157,6 +157,61 @@ En general, un diff/patch file incluye todos los cambios entre el primer archivo
 4.- Corroboramos que el código inicial funcione como nosotros buscamos
 `./disk_usage.py`
 
+***
+
+## ⚙️ Opciones de Comando Clave: `-r` y `-p1`
+
+A medida que usas `diff` y `patch`, te encontrarás con parámetros (flags) que modifican su comportamiento. Dos de los más importantes son `-r` para `diff` y `-p1` para `patch`.
+
+### `diff -r`: Comparando Directorios Completos 📂
+
+* **¿Para qué se usa?**
+    Hasta ahora, hemos visto cómo `diff` compara dos archivos. Pero, ¿qué pasa si queremos comparar dos **directorios** (carpetas) enteros, con todos los archivos y subcarpetas que contienen? Para esto sirve el parámetro `-r` (recursivo).
+
+* **¿Cómo funciona?**
+    Al usar `diff -r`, le ordenas a `diff` que "bucee" en las carpetas que le indicas. Hará lo siguiente:
+    1.  Comparará archivo por archivo que exista en ambas rutas.
+    2.  Te informará qué archivos o directorios existen **solamente** en una de las dos carpetas.
+    3.  Te mostrará la salida de `diff` para cada par de archivos que tengan diferencias.
+
+* **Ejemplo de uso:**
+    ```bash
+    # Compara todo el contenido de la carpeta de la versión antigua
+    # contra la carpeta de la versión nueva.
+    diff -r proyecto_v1/ proyecto_v2/
+    ```
+
+### `patch -p1`: El Adaptador de Rutas 🗺️
+
+* **¿Para qué se usa?**
+    Este es un parámetro para el comando `patch`. Su propósito es ayudar a `patch` a **encontrar los archivos correctos** que debe modificar, incluso si el archivo `.diff` (el parche) fue creado en una estructura de carpetas diferente.
+
+* **El Problema:**
+    Los parches generados por Git (y otras herramientas) a menudo incluyen prefijos en sus rutas de archivo. Verás esto en las cabeceras `---` y `+++` del parche:
+
+    ```diff
+    --- a/src/main.py
+    +++ b/src/main.py
+    ```
+
+    Si estás en la carpeta raíz de tu proyecto (que contiene la carpeta `src`) e intentas aplicar este parche con `patch < mi_parche.diff`, `patch` buscará una carpeta llamada `a`, luego `src`, y fallará porque esa ruta no existe.
+
+* **La Solución:**
+    El parámetro `-p1` le dice a `patch`: "Por favor, **ignora el primer componente** (la primera parte) de todas las rutas de archivo que leas en el parche".
+
+    * `patch` leerá `a/src/main.py`.
+    * El `-p1` le hará ignorar el `a/`.
+    * Buscará el archivo en `src/main.py`.
+    * ¡Lo encontrará y aplicará el parche exitosamente!
+
+* **Ejemplo de uso:**
+    ```bash
+    # Aplica el parche, ignorando el primer nivel de 
+    # prefijo en las rutas (ej. "a/" y "b/")
+    patch -p1 < disk_usage.diff
+    ```
+    Es una práctica casi estándar usar siempre `-p1` al aplicar parches generados por Git.
+
 ¿Cuál es la diferencia entre Git y GitHub? 
 Git es un VCS, GitHub es un servicio que usa a Git para crear repositorios remotos. En Git se puede almacenar el historial de mi código, en GitHub se puede hacer lo mismo que en Git, pero con la posibilidad de colaborar con otros. 
 
