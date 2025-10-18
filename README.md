@@ -70,6 +70,7 @@ Además del `diff` estándar, existen herramientas más avanzadas y visuales que
 
 #### 1. `wdiff`: Comparación Palabra por Palabra
 
+The wdiff command highlights the words that changed in a file by color, in addition to working line by line.
 Mientras que `diff` se enfoca en líneas completas, **`wdiff`** (word diff) se especializa en mostrar las diferencias **palabra por palabra**. Esto es extremadamente útil para textos largos o párrafos donde un pequeño cambio no justifica marcar toda la línea.
 
 * **`[-palabra-]`**: Muestra una palabra **eliminada**.
@@ -145,6 +146,16 @@ En Git, esta es la lógica que se usa *internamente* todo el tiempo. Cuando hace
 | **Salida** | Informe de `diff` (la "receta") | Archivo B (el "resultado") |
 
 En general, un diff/patch file incluye todos los cambios entre el primer archivo y el segundo, más el contexto necesario para entender los cambios y aplicarlos de vuelta al archivo original (siempre y cuando se utilice -u). 
+
+### Ejemplo de uso de diff y patch: 
+1.- Encontraremos la diferencia entre un archivo y otro y redigiremos dicha diferencia a un archivo 
+`diff -u disk_usage_original.py disk_usage_fixed.py > disk_usage.diff`
+2.- Mostramos el archivo diff generado
+`cat disk_usage.diff`
+3.- Agregamos el parche (patch) al archivo original
+`patch disk_usage.py < disk_usage.diff`
+4.- Corroboramos que el código inicial funcione como nosotros buscamos
+`./disk_usage.py`
 
 ¿Cuál es la diferencia entre Git y GitHub? 
 Git es un VCS, GitHub es un servicio que usa a Git para crear repositorios remotos. En Git se puede almacenar el historial de mi código, en GitHub se puede hacer lo mismo que en Git, pero con la posibilidad de colaborar con otros. 
