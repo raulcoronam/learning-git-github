@@ -62,16 +62,19 @@ It also simplifies server deployment by automating the configuration process, de
 
 
 ### Lección 3: What is Git?
-* **Para Qué (El Problema):** *[Tu nota sobre el problema que resuelve esta lección]*
-* **Cómo (La Solución):** *[Tu nota sobre los conceptos clave y cómo funciona]*
+Git is a widely used version control system (VCS) that was created by Linus Torvalds in 2005 to manage the development of the Linux kernel. 
 
-### Lección 4: Installing Git
-* **Para Qué (El Problema):** *[Tu nota sobre el problema que resuelve esta lección]*
-* **Cómo (La Solución):** *[Tu nota sobre los conceptos clave y cómo funciona]*
+Overview of Git
 
----
+Git is a free and open-source system compatible with Unix-based platforms, Windows, and macOS.
+It was designed to handle the challenges of collaboration among geographically distributed programmers.
+Distributed Architecture
 
-## 💡 Resumen del Módulo
+Unlike centralized VCS, Git allows every contributor to have a full copy of the repository on their local machine, enabling fast operations.
+Collaborators can share and pull changes without relying on a central server, although a server can be set up for collaboration.
+Usage and Flexibility
 
-* **Concepto Clave:** *[Tu resumen del concepto más importante que aprendiste en este módulo]*
-* **Habilidad Adquirida:** *[Tu descripción de lo que ahora eres capaz de hacer]*
+Git can be used for both small and large projects, tracking private work or sharing code on platforms like GitHub.
+The term "SCM" in the official Git website stands for Source Control Management, but VCS is preferred as it encompasses more than just source code management.
+
+
