@@ -58,14 +58,21 @@ Main Git Concepts
 Key Git Commands
 
 git init: Initializes a new Git repository in the current directory.
+
 git config -l: Displays the current configuration settings, including user information.
+
 git add: Stages changes to files, moving them from untracked to staged status.
+
 git commit: Records a snapshot of the staged changes in the repository. Use git commit -m "message" to add a commit message directly.
+
 git status: Shows the current status of files in the repository, indicating which are modified, staged, or untracked.
 
 Relevant Linux Commands
 
 mkdir: Creates a new directory.
+
 cd: Changes the current directory to the specified path.
+
 chmod: Changes the permissions of a file, making it executable.
+
 nano: Opens a text editor in the terminal for editing files.
